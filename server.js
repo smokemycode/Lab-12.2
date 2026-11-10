@@ -9,11 +9,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/fun-fact', async (req, res) => {
-        const response = await fetch(FUN_FACT_URL);
-        const funFact = await response.json();
+    const response = await fetch(FUN_FACT_URL);
+    const funFact = await response.json();
 
-    console.log(funFact);
-    res.send('Check your terminal!');
+    res.json({ fact: funFact.text });
     });
 
 app.listen(port, () => {

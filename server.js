@@ -9,7 +9,11 @@ const port = 3000;
 
 app.get('/', (req, res) => {
     res.send("☕ The Daily Grind server is awake!")
-})
+});
+
+app.get('/api/fun-fact', async (req, res) => {
+    res.json({ fact: 'Coffee is actually a fruit. '});
+});
 
 app.listen(port, () => {
     console.log(`☕ The Daily Grind server is running at http://localhost:${port}`);

@@ -9,11 +9,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/fun-fact', async (req, res) => {
-    const response = await fetch(FUN_FACT_URL);
-    const funFact = await response.json();
+    try {
+        const response = await fetch(FUN_FACT_URL);
+        if (!response.ok) {
+            throw new Error(`External API responded with status ${response.status}`);
+        }
 
-    res.json({ fact: funFact.text });
-    });
+        const funFact = await response.json();
+
+        res.json({ fact: funFact.text });
+    } catch (error) {
+        res.status(500).json({ error: "Could not fetch fun fact" });
+    }
+});
 
 app.listen(port, () => {
     console.log(`☕ The Daily Grind server is running at http://localhost:${port}`);
